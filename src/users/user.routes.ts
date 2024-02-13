@@ -132,10 +132,10 @@ userRouter.get("/users/search", async (req : Request, res : Response) => {
             users = await database.findByNameContaining(name.toString())
         }
         else if (email) {
-            const findemail = await database.findByEmail(email.toString())
+            const findemail = await database.findByEmailContaining(email.toString())
             if (findemail)
             {
-                users = [findemail];
+                users = findemail;
             }
         }
         else {

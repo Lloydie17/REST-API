@@ -129,3 +129,16 @@ export const findByNameContaining = async (substring : string) : Promise<UnitUse
 
     return name;
 };
+
+export const findByEmailContaining = async (user_email: string): Promise<null | UnitUser[]> => {
+    
+    const allUsers = await findAll();
+
+    const getUser = allUsers.filter(result => result.email.includes(user_email));
+
+    if (getUser.length === 0) {
+        return null;
+    }
+
+    return getUser;
+};
