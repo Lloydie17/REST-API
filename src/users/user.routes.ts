@@ -148,7 +148,6 @@ userRouter.get("/users/search", async (req : Request, res : Response) => {
 
         if (users.length === 0) {
             return res.status(StatusCodes.OK).json({})
-            //return res.status(StatusCodes.NOT_FOUND).json({msg : `No users at this time..`})
         }
 
         return res.status(StatusCodes.OK).json({total_user : users.length, users})
