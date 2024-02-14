@@ -129,7 +129,11 @@ userRouter.get("/users/search", async (req : Request, res : Response) => {
         let users: UnitUser[] = [];
 
         if (name) {
-            users = await database.findByNameContaining(name.toString())
+            const finduser = await database.findByNameContaining(name.toString())
+            if (finduser)
+            {
+                users = finduser;
+            }
         }
         else if (email) {
             const findemail = await database.findByEmailContaining(email.toString())
@@ -142,8 +146,9 @@ userRouter.get("/users/search", async (req : Request, res : Response) => {
             users = await database.findAll();
         }
 
-        if (!users || users.length === 0) {
-            return res.status(StatusCodes.NOT_FOUND).json({})
+        if (users.length === 0) {
+            return res.status(StatusCodes.OK).json({})
+            //return res.status(StatusCodes.NOT_FOUND).json({msg : `No users at this time..`})
         }
 
         return res.status(StatusCodes.OK).json({total_user : users.length, users})
